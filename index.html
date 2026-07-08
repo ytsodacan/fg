@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fearing Gorilla</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --outline: #14202b;
+    --panel-dark: #0e2a3a;
+    --panel-border: #3a7a9c;
+    --text-light: #ffffff;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    font-family: "Nunito", sans-serif;
+    background: #0a1a24;
+    color: var(--text-light);
+    overflow-x: hidden;
+  }
+
+  .hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    z-index: 0;
+    background: #3d5566;
+  }
+
+  /* ---------- Nav ---------- */
+
+  .navbar {
+    position: relative;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px 48px 0 48px;
+  }
+
+  .logo-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 74px;
+    height: 74px;
+    flex-shrink: 0;
+  }
+
+  .logo-badge img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-family: "Baloo 2", sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: 0.2px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.35);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .nav-links a:hover {
+    opacity: 0.8;
+  }
+
+  .chevron {
+    font-size: 11px;
+    transform: translateY(1px);
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-shrink: 0;
+  }
+
+  .connect-btn {
+    font-family: "Baloo 2", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--outline);
+    background: var(--text-light);
+    border: 2px solid var(--outline);
+    border-radius: 30px;
+    padding: 12px 28px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 var(--outline);
+    transition: transform 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .connect-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  /* ---------- Mobile menu toggle ---------- */
+
+  .menu-toggle {
+    display: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    border: 2px solid rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.08);
+    color: var(--text-light);
+    font-size: 20px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* ---------- Hero content ---------- */
+
+  .hero-content {
+    position: relative;
+    z-index: 15;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 6vh;
+    text-align: center;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .wordmark {
+    width: min(90vw, 640px);
+    height: auto;
+    display: block;
+  }
+
+  .watch-trailer {
+    margin-top: 34px;
+    font-family: "Baloo 2", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--text-light);
+    background: transparent;
+    border: 2px solid rgba(255,255,255,0.85);
+    border-radius: 30px;
+    padding: 16px 38px;
+    cursor: pointer;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: background 0.2s ease;
+  }
+
+  .watch-trailer:hover {
+    background: rgba(255,255,255,0.12);
+  }
+
+  .carousel-dots {
+    margin-top: 18px;
+    display: flex;
+    gap: 8px;
+  }
+
+  .carousel-dots span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.9);
+  }
+
+  .carousel-dots span:not(:first-child) {
+    background: rgba(255,255,255,0.35);
+  }
+
+  /* ---------- Mini game panel ---------- */
+
+  .minigame-panel {
+    position: absolute;
+    top: 150px;
+    right: 0;
+    z-index: 18;
+    display: flex;
+    align-items: center;
+    background: var(--panel-dark);
+    border: 2px solid var(--panel-border);
+    border-right: none;
+    border-radius: 20px 0 0 20px;
+    padding: 16px 20px;
+    box-shadow: -4px 6px 16px rgba(0,0,0,0.35);
+  }
+
+  .minigame-text {
+    font-family: "Baloo 2", sans-serif;
+    margin-right: 18px;
+  }
+
+  .minigame-text p {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--text-light);
+    white-space: nowrap;
+  }
+
+  .play-now {
+    margin-top: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Baloo 2", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--outline);
+    background: var(--text-light);
+    border: none;
+    border-radius: 20px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+
+  .play-now::before {
+    content: "\25CF";
+    font-size: 8px;
+    color: #2e8b57;
+  }
+
+  .minigame-image {
+    width: 96px;
+    height: 96px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .minigame-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 900px) {
+    .navbar {
+      padding: 18px 18px 0 18px;
+    }
+
+    .logo-badge {
+      width: 52px;
+      height: 52px;
+    }
+
+    .nav-links {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: min(78vw, 320px);
+      background: var(--panel-dark);
+      border-left: 2px solid var(--panel-border);
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 28px;
+      padding: 40px;
+      z-index: 40;
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+    }
+
+    .nav-links.open {
+      transform: translateX(0);
+    }
+
+    .nav-links a {
+      font-size: 20px;
+    }
+
+    .nav-right .connect-btn {
+      display: none;
+    }
+
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 35;
+    }
+
+    .nav-overlay.open {
+      display: block;
+    }
+
+    .hero-content {
+      padding-top: 4vh;
+    }
+
+    .wordmark {
+      width: min(84vw, 420px);
+    }
+
+    .watch-trailer {
+      margin-top: 24px;
+      padding: 13px 30px;
+      font-size: 15px;
+    }
+
+    .minigame-panel {
+      position: relative;
+      top: auto;
+      right: auto;
+      margin: 14px auto 0 auto;
+      width: fit-content;
+      max-width: calc(100% - 32px);
+      border-radius: 16px;
+      border-right: 2px solid var(--panel-border);
+      padding: 12px 14px;
+    }
+
+    .minigame-text p {
+      white-space: normal;
+      font-size: 12px;
+    }
+
+    .play-now {
+      font-size: 11px;
+      padding: 6px 12px;
+    }
+
+    .minigame-image {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .wordmark {
+      width: 86vw;
+    }
+
+    .minigame-panel {
+      flex-direction: row;
+      max-width: calc(100% - 24px);
+    }
+
+    .minigame-text p {
+      font-size: 11px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+
+  <img
+    class="hero-bg"
+    id="heroBg"
+    src=""
+    alt="Fearing Gorilla background scene"
+  >
+
+  <nav class="navbar">
+    <div class="logo-badge">
+      <img
+        src="/images/fg.png"
+        alt="Fearing Gorilla logo"
+      >
+    </div>
+
+    <button class="menu-toggle" aria-label="Open menu" onclick="document.querySelector('.nav-links').classList.toggle('open'); document.querySelector('.nav-overlay').classList.toggle('open');">☰</button>
+
+    <ul class="nav-links">
+      <li><a href="#">Game info <span class="chevron">▾</span></a></li>
+      <li><a href="#">Tokens</a></li>
+      <li><a href="#">Lore</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Marketplace</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <button class="connect-btn">CONNECT</button>
+    </div>
+  </nav>
+
+  <div class="nav-overlay" onclick="document.querySelector('.nav-links').classList.remove('open'); this.classList.remove('open');"></div>
+
+  <div class="minigame-panel">
+    <div class="minigame-text">
+      <p>Our first<br>Mini Game is out!</p>
+      <button class="play-now">PLAY NOW</button>
+    </div>
+    <div class="minigame-image">
+      <img
+        src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect width='100%25' height='100%25' fill='%233d5566'/%3E%3Crect x='4' y='4' width='192' height='192' fill='none' stroke='%237d95a3' stroke-width='4' stroke-dasharray='8,6'/%3E%3Ctext x='50%25' y='48%25' fill='white' font-family='sans-serif' font-size='16' font-weight='bold' text-anchor='middle'%3EIMAGE%3C/text%3E%3Ctext x='50%25' y='58%25' fill='%23dfe8ee' font-family='sans-serif' font-size='13' text-anchor='middle'%3Emini game character%3C/text%3E%3C/svg%3E"
+        alt="Mini game character placeholder — replace src with the mini game artwork"
+      >
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <img
+      class="wordmark"
+      src="/images/fg.png"
+      alt="Fearing Gorilla wordmark logo"
+    >
+
+    <button class="watch-trailer">WATCH TRAILER</button>
+
+    <div class="carousel-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+
+  var backgrounds = ["/images/bg1.png", "/images/bg2.png", "/images/bg3.png"];
+  var pick = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+  document.getElementById("heroBg").src = pick;
+</script>
+
+</body>
+</html>
