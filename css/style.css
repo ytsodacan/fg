@@ -1,0 +1,573 @@
+:root {
+  --outline: #1c0909;
+  --panel-dark: #3a0f0f;
+  --panel-border: #8c2f2f;
+  --accent: #c0392b;
+  --accent-bright: #e2483a;
+  --text-light: #ffffff;
+  --nav-height: 96px;
+  --body-bg: #170707;
+  --body-bg-alt: #200b0b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  background: var(--body-bg);
+  color: var(--text-light);
+  overflow-x: hidden;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 48px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0px;
+  box-shadow: none;
+  transition:
+    top 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.4s ease,
+    border-radius 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.navbar.scrolled {
+  top: 14px;
+  width: min(92%, 1100px);
+  padding: 10px 26px;
+  background: rgba(58, 15, 15, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 999px;
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+}
+
+.logo-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 74px;
+  height: 74px;
+  flex-shrink: 0;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar.scrolled .logo-badge {
+  width: 48px;
+  height: 48px;
+}
+
+.logo-badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: 0.2px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-links a:hover {
+  opacity: 0.75;
+}
+
+.nav-links a.active {
+  color: var(--accent-bright);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-shrink: 0;
+}
+
+.login-btn {
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--outline);
+  background: var(--text-light);
+  border: 2px solid var(--outline);
+  border-radius: 30px;
+  padding: 12px 28px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--outline);
+  transition: transform 0.15s ease;
+  white-space: nowrap;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+}
+
+.menu-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-light);
+  font-size: 20px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nav-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 130;
+}
+
+.nav-overlay.open {
+  display: block;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  z-index: 0;
+  background: #3a1414;
+  filter: blur(5px) saturate(1.15);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(20, 5, 5, 0.25) 0%, rgba(15, 4, 4, 0.55) 60%, rgba(10, 2, 2, 0.85) 100%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 15;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: calc(var(--nav-height) + 1vh);
+  padding-bottom: 4vh;
+  text-align: center;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.wordmark {
+  width: min(64vw, 460px);
+  height: auto;
+  display: block;
+}
+
+.watch-trailer {
+  margin-top: 22px;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: var(--text-light);
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 30px;
+  padding: 16px 38px;
+  cursor: pointer;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: background 0.2s ease;
+}
+
+.watch-trailer:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.minigame-panel {
+  position: fixed;
+  top: 150px;
+  right: 0;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  background: var(--panel-dark);
+  border: 2px solid var(--panel-border);
+  border-right: none;
+  border-radius: 20px 0 0 20px;
+  padding: 16px 20px;
+  box-shadow: -4px 6px 16px rgba(0, 0, 0, 0.45);
+}
+
+.minigame-text {
+  font-family: "Baloo 2", sans-serif;
+  margin-right: 18px;
+}
+
+.minigame-text p {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-light);
+  white-space: nowrap;
+}
+
+.play-now {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--outline);
+  background: var(--text-light);
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.play-now::before {
+  content: "\25CF";
+  font-size: 8px;
+  color: var(--accent-bright);
+}
+
+.minigame-image {
+  width: 96px;
+  height: 96px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.minigame-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.page-hero {
+  position: relative;
+  padding: calc(var(--nav-height) + 60px) 48px 80px 48px;
+  text-align: center;
+  background: radial-gradient(circle at 50% 0%, rgba(140, 47, 47, 0.35), transparent 60%), var(--body-bg);
+}
+
+.page-hero .section-eyebrow {
+  justify-content: center;
+  display: flex;
+}
+
+.page-hero .section-title {
+  margin-bottom: 16px;
+}
+
+.page-hero p {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.page-section {
+  position: relative;
+  padding: 100px 48px;
+  background: var(--body-bg);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.page-section.alt {
+  background: var(--body-bg-alt);
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-eyebrow {
+  font-family: "Baloo 2", sans-serif;
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: var(--accent-bright);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 800;
+  font-size: clamp(30px, 5vw, 52px);
+  margin-bottom: 40px;
+  color: var(--text-light);
+}
+
+.info-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px;
+}
+
+.info-slot {
+  min-height: 180px;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  font-family: "Nunito", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.5;
+}
+
+.feature-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.feature-card .image-slot {
+  aspect-ratio: 4 / 3;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-bottom: none;
+  background: rgba(140, 47, 47, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 16px;
+}
+
+.feature-card .feature-text {
+  padding: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.5;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-top: none;
+  flex: 1;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(48px) scale(0.98);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.info-slots .reveal-item {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.info-slots .reveal-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.info-slots .reveal-item:nth-child(1) { transition-delay: 0s; }
+.info-slots .reveal-item:nth-child(2) { transition-delay: 0.12s; }
+.info-slots .reveal-item:nth-child(3) { transition-delay: 0.24s; }
+.info-slots .reveal-item:nth-child(4) { transition-delay: 0.36s; }
+
+@media (max-width: 900px) {
+  .navbar {
+    padding: 18px 18px;
+  }
+
+  .navbar.scrolled {
+    width: 94%;
+    padding: 8px 16px;
+  }
+
+  .logo-badge {
+    width: 52px;
+    height: 52px;
+  }
+
+  .navbar.scrolled .logo-badge {
+    width: 40px;
+    height: 40px;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: min(78vw, 320px);
+    background: var(--panel-dark);
+    border-left: 2px solid var(--panel-border);
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 28px;
+    padding: 40px;
+    z-index: 140;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-links.open {
+    transform: translateX(0);
+  }
+
+  .nav-links a {
+    font-size: 20px;
+  }
+
+  .nav-right .login-btn {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .wordmark {
+    width: min(70vw, 340px);
+  }
+
+  .watch-trailer {
+    margin-top: 18px;
+    padding: 13px 30px;
+    font-size: 15px;
+  }
+
+  .minigame-panel {
+    top: 88px;
+    right: 0;
+    max-width: 62vw;
+    border-radius: 16px 0 0 16px;
+    padding: 10px 12px;
+  }
+
+  .minigame-text {
+    margin-right: 10px;
+  }
+
+  .minigame-text p {
+    white-space: normal;
+    font-size: 11px;
+  }
+
+  .play-now {
+    font-size: 10px;
+    padding: 6px 10px;
+  }
+
+  .minigame-image {
+    width: 52px;
+    height: 52px;
+  }
+
+  .page-section {
+    padding: 70px 24px;
+  }
+
+  .page-hero {
+    padding: calc(var(--nav-height) + 40px) 24px 60px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .wordmark {
+    width: 78vw;
+  }
+
+  .minigame-panel {
+    top: 76px;
+    max-width: 58vw;
+    padding: 8px 10px;
+  }
+
+  .minigame-text p {
+    font-size: 10px;
+  }
+
+  .minigame-image {
+    width: 44px;
+    height: 44px;
+  }
+}
