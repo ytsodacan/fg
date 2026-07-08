@@ -41,7 +41,6 @@
     overflow: hidden;
   }
 
-  
   .hero-bg {
     position: absolute;
     inset: 0;
@@ -52,8 +51,6 @@
     z-index: 0;
     background: #3d5566;
   }
-
-  /* ---------- Nav ---------- */
 
   .navbar {
     position: relative;
@@ -136,8 +133,6 @@
     transform: translateY(-2px);
   }
 
-  /* ---------- Mobile menu toggle ---------- */
-
   .menu-toggle {
     display: none;
     width: 42px;
@@ -152,8 +147,6 @@
     justify-content: center;
     flex-shrink: 0;
   }
-
-  /* ---------- Hero content ---------- */
 
   .hero-content {
     position: relative;
@@ -211,8 +204,6 @@
   .carousel-dots span:not(:first-child) {
     background: rgba(255,255,255,0.35);
   }
-
-  /* ---------- Mini game panel ---------- */
 
   .minigame-panel {
     position: absolute;
@@ -279,8 +270,6 @@
     display: block;
   }
 
-  /* ---------- Responsive ---------- */
-
   @media (max-width: 900px) {
     .navbar {
       padding: 18px 18px 0 18px;
@@ -323,6 +312,7 @@
 
     .menu-toggle {
       display: flex;
+      margin-left: auto;
     }
 
     .nav-overlay {
@@ -352,30 +342,30 @@
     }
 
     .minigame-panel {
-      position: relative;
-      top: auto;
-      right: auto;
-      margin: 14px auto 0 auto;
-      width: fit-content;
-      max-width: calc(100% - 32px);
-      border-radius: 16px;
-      border-right: 2px solid var(--panel-border);
-      padding: 12px 14px;
+      top: 88px;
+      right: 0;
+      max-width: 62vw;
+      border-radius: 16px 0 0 16px;
+      padding: 10px 12px;
+    }
+
+    .minigame-text {
+      margin-right: 10px;
     }
 
     .minigame-text p {
       white-space: normal;
-      font-size: 12px;
+      font-size: 11px;
     }
 
     .play-now {
-      font-size: 11px;
-      padding: 6px 12px;
+      font-size: 10px;
+      padding: 6px 10px;
     }
 
     .minigame-image {
-      width: 60px;
-      height: 60px;
+      width: 52px;
+      height: 52px;
     }
   }
 
@@ -385,12 +375,18 @@
     }
 
     .minigame-panel {
-      flex-direction: row;
-      max-width: calc(100% - 24px);
+      top: 76px;
+      max-width: 58vw;
+      padding: 8px 10px;
     }
 
     .minigame-text p {
-      font-size: 11px;
+      font-size: 10px;
+    }
+
+    .minigame-image {
+      width: 44px;
+      height: 44px;
     }
   }
 </style>
@@ -409,7 +405,7 @@
   <nav class="navbar">
     <div class="logo-badge">
       <img
-        src="/images/fg.png"
+        src="/images/fg.WEBP"
         alt="Fearing Gorilla logo"
       >
     </div>
@@ -447,7 +443,7 @@
   <div class="hero-content">
     <img
       class="wordmark"
-      src="/images/fg.png"
+      src="/images/fg.WEBP"
       alt="Fearing Gorilla wordmark logo"
     >
 
@@ -461,8 +457,7 @@
 </div>
 
 <script>
-
-  var backgrounds = ["/images/bg1.png", "/images/bg2.png", "/images/bg3.png"];
+  var backgrounds = ["/images/bg1.PNG", "/images/bg2.PNG", "/images/bg3.PNG"];
   var pick = backgrounds[Math.floor(Math.random() * backgrounds.length)];
   document.getElementById("heroBg").src = pick;
 </script>
