@@ -370,6 +370,23 @@ body {
   gap: 28px;
 }
 
+.photo-slider {
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 20px 0 40px;
+  position: relative;
+}
+.photo-slider img {
+  display: inline-block;
+  height: 200px;
+  margin-right: 40px;
+  animation: slide 12s linear infinite;
+}
+@keyframes slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
 .info-slot {
   min-height: 180px;
   border: 2px dashed rgba(255, 255, 255, 0.3);
