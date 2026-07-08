@@ -1,0 +1,17 @@
+[
+  {
+    "img": "images/bg1.PNG",
+    "text": "Explore the jungle",
+    "chance": 40
+  },
+  {
+    "img": "images/bg2.PNG",
+    "text": "Swing through the trees",
+    "chance": 30
+  },
+  {
+    "img": "images/bg3.PNG",
+    "text": "Discover hidden treasures",
+    "chance": 30
+  }
+]
