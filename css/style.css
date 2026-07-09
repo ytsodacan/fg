@@ -20,6 +20,11 @@ html {
   scroll-behavior: smooth;
 }
 
+.resize-animation-stopper * {
+  transition: none !important;
+  animation: none !important;
+}
+
 html, body {
   height: 100%;
 }
@@ -34,36 +39,45 @@ body {
 .navbar {
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   width: 100%;
-  z-index: 100;
+  z-index: 150;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 22px 48px;
-  background: transparent;
-  border: 1px solid transparent;
   border-radius: 0px;
-  box-shadow: none;
   transition:
     top 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     padding 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    background 0.4s ease,
-    border-radius 0.4s ease,
-    border-color 0.4s ease,
-    box-shadow 0.4s ease;
+    border-radius 0.4s ease;
+}
+
+.navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
 }
 
 .navbar.scrolled {
   top: 14px;
   width: min(92%, 1100px);
   padding: 10px 26px;
+  border-radius: 999px;
+}
+
+.navbar.scrolled::before {
   background: rgba(58, 15, 15, 0.6);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-radius: 999px;
   border-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
 }
@@ -246,6 +260,22 @@ body {
 
 .watch-trailer:hover {
   background: rgba(255, 255, 255, 0.12);
+}
+
+.trailer-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.online-badge.online-badge--hero {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  bottom: auto;
+  transform: translate(-50%, calc(-100% - 14px));
+  z-index: 20;
+  pointer-events: none;
+  white-space: nowrap;
 }
 
 .minigame-panel {
@@ -581,6 +611,10 @@ body {
     padding: 40px;
     z-index: 140;
     transform: translateX(100%);
+    transition: none;
+  }
+
+  .nav-links.menu-transition {
     transition: transform 0.3s ease;
   }
 

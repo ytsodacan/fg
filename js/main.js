@@ -113,16 +113,39 @@ function setupNavScroll() {
   });
 }
 
+function setupResizeTransitionGuard() {
+  var resizeTimer;
+  window.addEventListener("resize", function () {
+    document.body.classList.add("resize-animation-stopper");
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      document.body.classList.remove("resize-animation-stopper");
+    }, 300);
+  });
+}
+
 function setupMobileMenu() {
   var toggle = document.querySelector(".menu-toggle");
   var links = document.querySelector(".nav-links");
   var overlay = document.querySelector(".nav-overlay");
   if (!toggle || !links || !overlay) return;
+
   toggle.addEventListener("click", function () {
+    links.classList.add("menu-transition");
     links.classList.toggle("open");
     overlay.classList.toggle("open");
   });
   overlay.addEventListener("click", function () {
+    links.classList.add("menu-transition");
+    links.classList.remove("open");
+    overlay.classList.remove("open");
+  });
+
+  // The drawer only gets its transition right before a real user-initiated
+  // toggle (above). Any resize (dragging the window, rotating, devtools
+  // device toggle) strips it again so crossing the breakpoint never animates.
+  window.addEventListener("resize", function () {
+    links.classList.remove("menu-transition");
     links.classList.remove("open");
     overlay.classList.remove("open");
   });
@@ -175,6 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   setupNavScroll();
   setupMobileMenu();
+  setupResizeTransitionGuard();
   setupScrollReveal();
   setupOnlineCount();
 });
