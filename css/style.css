@@ -133,6 +133,10 @@ body {
   color: var(--accent-bright);
 }
 
+.nav-login-item {
+  display: none;
+}
+
 .nav-right {
   display: flex;
   align-items: center;
@@ -624,6 +628,16 @@ body {
 
   .nav-links a {
     font-size: 20px;
+  }
+
+  .nav-login-item {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .nav-login-item .login-btn {
+    width: 100%;
   }
 
   .nav-right .login-btn {
