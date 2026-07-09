@@ -879,6 +879,14 @@ body.page-leaving {
     height: 40px;
   }
 
+  .navbar.scrolled > .menu-toggle {
+    transform: translateX(-10px);
+  }
+
+  .navbar.scrolled > .menu-toggle.is-open {
+    transform: translateX(-10px) rotate(90deg);
+  }
+
   .nav-links {
     position: fixed;
     top: 0;

@@ -118,13 +118,76 @@ function buildCarousel(data) {
 function setupNavScroll() {
   var navbar = document.getElementById("navbar");
   if (!navbar) return;
-  window.addEventListener("scroll", function () {
-    if (window.scrollY > 40) {
+
+  var THRESHOLD = 40;
+  var MAX_PROXY = THRESHOLD * 3;
+  var proxyOffset = 0;
+
+  function apply(offset) {
+    if (offset > THRESHOLD) {
       navbar.classList.add("scrolled");
     } else {
       navbar.classList.remove("scrolled");
     }
+  }
+
+  function realScrollY() {
+    return window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  }
+
+  function checkRealScroll() {
+    apply(Math.max(realScrollY(), proxyOffset));
+  }
+
+  // Primary path: normal scroll position, for every visitor where this
+  // just works normally.
+  window.addEventListener("scroll", checkRealScroll, { passive: true });
+  setInterval(checkRealScroll, 250);
+
+  // Fallback path: some environments report zero scroll movement through
+  // every scroll-position API (scrollY, getBoundingClientRect,
+  // IntersectionObserver) even though the page visibly scrolls just fine.
+  // Wheel/touch input is the raw cause of that visual movement, so it
+  // fires regardless -- track it directly as a proxy instead of relying on
+  // scroll position at all.
+  window.addEventListener(
+    "wheel",
+    function (e) {
+      proxyOffset += e.deltaY;
+      if (proxyOffset < 0) proxyOffset = 0;
+      if (proxyOffset > MAX_PROXY) proxyOffset = MAX_PROXY;
+      apply(Math.max(realScrollY(), proxyOffset));
+    },
+    { passive: true }
+  );
+
+  var touchStartY = null;
+  window.addEventListener(
+    "touchstart",
+    function (e) {
+      if (e.touches && e.touches.length) touchStartY = e.touches[0].clientY;
+    },
+    { passive: true }
+  );
+  window.addEventListener(
+    "touchmove",
+    function (e) {
+      if (touchStartY === null || !e.touches || !e.touches.length) return;
+      var currentY = e.touches[0].clientY;
+      var delta = touchStartY - currentY; // finger moving up = scrolling down
+      proxyOffset += delta;
+      if (proxyOffset < 0) proxyOffset = 0;
+      if (proxyOffset > MAX_PROXY) proxyOffset = MAX_PROXY;
+      touchStartY = currentY;
+      apply(Math.max(realScrollY(), proxyOffset));
+    },
+    { passive: true }
+  );
+  window.addEventListener("touchend", function () {
+    touchStartY = null;
   });
+
+  checkRealScroll();
 }
 
 function setupResizeTransitionGuard() {
