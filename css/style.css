@@ -575,7 +575,7 @@ body.page-leaving {
   display: flex;
   align-items: flex-start;
   width: max-content;
-  animation: slide-track 65s linear infinite;
+  animation: slide-track 105s linear infinite;
 }
 .photo-slider .slide-item {
   display: flex;
