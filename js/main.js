@@ -139,17 +139,10 @@ function setupNavScroll() {
     apply(Math.max(realScrollY(), proxyOffset));
   }
 
-  // Primary path: normal scroll position, for every visitor where this
-  // just works normally.
+
   window.addEventListener("scroll", checkRealScroll, { passive: true });
   setInterval(checkRealScroll, 250);
 
-  // Fallback path: some environments report zero scroll movement through
-  // every scroll-position API (scrollY, getBoundingClientRect,
-  // IntersectionObserver) even though the page visibly scrolls just fine.
-  // Wheel/touch input is the raw cause of that visual movement, so it
-  // fires regardless -- track it directly as a proxy instead of relying on
-  // scroll position at all.
   window.addEventListener(
     "wheel",
     function (e) {
@@ -174,7 +167,7 @@ function setupNavScroll() {
     function (e) {
       if (touchStartY === null || !e.touches || !e.touches.length) return;
       var currentY = e.touches[0].clientY;
-      var delta = touchStartY - currentY; // finger moving up = scrolling down
+      var delta = touchStartY - currentY;
       proxyOffset += delta;
       if (proxyOffset < 0) proxyOffset = 0;
       if (proxyOffset > MAX_PROXY) proxyOffset = MAX_PROXY;
@@ -233,9 +226,7 @@ function setupMobileMenu() {
   });
   overlay.addEventListener("click", closeMenu);
 
-  // The drawer only gets its transition right before a real user-initiated
-  // toggle (above). Any resize (dragging the window, rotating, devtools
-  // device toggle) strips it again so crossing the breakpoint never animates.
+ 
   window.addEventListener("resize", function () {
     links.classList.remove("menu-transition");
     closeMenu();
