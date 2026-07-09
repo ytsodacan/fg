@@ -195,6 +195,35 @@ function setupOnlineCount() {
   setInterval(refreshOnlineCount, 8000);
 }
 
+function setupPageTransitions() {
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      document.body.classList.add("page-loaded");
+    });
+  });
+
+  document.addEventListener("click", function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var link = e.target.closest("a");
+    if (!link || link.target === "_blank" || link.hasAttribute("download")) return;
+    var href = link.getAttribute("href");
+    if (!href || href.charAt(0) === "#") return;
+    if (link.hostname && link.hostname !== window.location.hostname) return;
+
+    e.preventDefault();
+    document.body.classList.remove("page-loaded");
+    document.body.classList.add("page-leaving");
+    setTimeout(function () {
+      window.location.href = href;
+    }, 320);
+  });
+
+  window.addEventListener("pageshow", function (event) {
+    document.body.classList.remove("page-leaving");
+    document.body.classList.add("page-loaded");
+  });
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   fetchImageChances(function (data) {
     applyRandomHeroBackground(data);
@@ -205,4 +234,5 @@ document.addEventListener("DOMContentLoaded", function () {
   setupResizeTransitionGuard();
   setupScrollReveal();
   setupOnlineCount();
+  setupPageTransitions();
 });
