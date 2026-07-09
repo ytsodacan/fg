@@ -55,15 +55,16 @@ function weightedPick(data) {
 function applyRandomHeroBackground(data) {
   var pick = weightedPick(data);
   var bgEl = document.getElementById("heroBg");
-  var captionEl = document.querySelector(".hero-caption");
-  if (bgEl) bgEl.src = pick.img;
-  if (captionEl) {
-    captionEl.textContent = pick.text;
-    captionEl.classList.add("show");
-    setTimeout(function () {
-      captionEl.classList.remove("show");
-    }, 4000);
-  }
+  if (!bgEl) return;
+  bgEl.classList.remove("loaded");
+  bgEl.onload = function () {
+    bgEl.classList.add("loaded");
+  };
+  bgEl.onerror = function () {
+    bgEl.classList.remove("loaded");
+    bgEl.removeAttribute("src");
+  };
+  bgEl.src = pick.img;
 }
 
 function buildCarousel(data) {
@@ -80,12 +81,24 @@ function buildCarousel(data) {
     .map(function (entry) {
       return (
         '<div class="slide-item">' +
-        '<img src="' + entry.img + '" alt="' + entry.text + '">' +
+        '<img alt="' + entry.text + '">' +
         '<div class="slide-text">' + entry.text + "</div>" +
         "</div>"
       );
     })
     .join("");
+  var imgs = track.querySelectorAll("img");
+  imgs.forEach(function (imgEl, i) {
+    var entry = fullSet[i];
+    imgEl.onload = function () {
+      imgEl.classList.add("loaded");
+    };
+    imgEl.onerror = function () {
+      imgEl.classList.remove("loaded");
+      imgEl.removeAttribute("src");
+    };
+    imgEl.src = entry.img;
+  });
 }
 
 function setupNavScroll() {
@@ -132,6 +145,29 @@ function setupScrollReveal() {
   });
 }
 
+function getMockConcurrentUsers() {
+  return Math.floor(Math.random() * 80) + 20;
+}
+
+function getConcurrentUsers(callback) {
+  callback(getMockConcurrentUsers());
+}
+
+function refreshOnlineCount() {
+  var el = document.getElementById("onlineCount");
+  if (!el) return;
+  getConcurrentUsers(function (count) {
+    el.textContent = count + " Online";
+  });
+}
+
+function setupOnlineCount() {
+  var el = document.getElementById("onlineCount");
+  if (!el) return;
+  refreshOnlineCount();
+  setInterval(refreshOnlineCount, 8000);
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   fetchImageChances(function (data) {
     applyRandomHeroBackground(data);
@@ -140,4 +176,5 @@ document.addEventListener("DOMContentLoaded", function () {
   setupNavScroll();
   setupMobileMenu();
   setupScrollReveal();
+  setupOnlineCount();
 });

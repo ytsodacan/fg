@@ -1,17 +1,17 @@
 [
   {
     "img": "images/bg1.PNG",
-    "text": "Explore the jungle",
+    "text": "Wonderland Map",
     "chance": 40
   },
   {
     "img": "images/bg2.PNG",
-    "text": "Swing through the trees",
+    "text": "Candyland Map",
     "chance": 30
   },
   {
     "img": "images/bg3.PNG",
-    "text": "Discover hidden treasures",
+    "text": "Circus",
     "chance": 30
   }
 ]
