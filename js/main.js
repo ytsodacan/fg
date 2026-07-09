@@ -129,7 +129,10 @@ function setupNavScroll() {
 
 function setupResizeTransitionGuard() {
   var resizeTimer;
+  var lastWidth = window.innerWidth;
   window.addEventListener("resize", function () {
+    if (window.innerWidth === lastWidth) return;
+    lastWidth = window.innerWidth;
     document.body.classList.add("resize-animation-stopper");
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
@@ -139,32 +142,40 @@ function setupResizeTransitionGuard() {
 }
 
 function setupMobileMenu() {
-  var toggle = document.querySelector(".menu-toggle");
+  var toggles = document.querySelectorAll(".menu-toggle");
   var links = document.querySelector(".nav-links");
   var overlay = document.querySelector(".nav-overlay");
-  if (!toggle || !links || !overlay) return;
+  if (!toggles.length || !links || !overlay) return;
 
-  toggle.addEventListener("click", function () {
+  function toggleMenu() {
     links.classList.add("menu-transition");
-    links.classList.toggle("open");
-    overlay.classList.toggle("open");
-    toggle.classList.toggle("is-open");
-  });
-  overlay.addEventListener("click", function () {
+    var isOpen = links.classList.toggle("open");
+    overlay.classList.toggle("open", isOpen);
+    toggles.forEach(function (btn) {
+      btn.classList.toggle("is-open", isOpen);
+    });
+  }
+
+  function closeMenu() {
     links.classList.add("menu-transition");
     links.classList.remove("open");
     overlay.classList.remove("open");
-    toggle.classList.remove("is-open");
+    toggles.forEach(function (btn) {
+      btn.classList.remove("is-open");
+    });
+  }
+
+  toggles.forEach(function (btn) {
+    btn.addEventListener("click", toggleMenu);
   });
+  overlay.addEventListener("click", closeMenu);
 
   // The drawer only gets its transition right before a real user-initiated
   // toggle (above). Any resize (dragging the window, rotating, devtools
   // device toggle) strips it again so crossing the breakpoint never animates.
   window.addEventListener("resize", function () {
     links.classList.remove("menu-transition");
-    links.classList.remove("open");
-    overlay.classList.remove("open");
-    toggle.classList.remove("is-open");
+    closeMenu();
   });
 }
 

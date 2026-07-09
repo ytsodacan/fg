@@ -18,6 +18,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 .resize-animation-stopper * {
@@ -109,6 +110,10 @@ body.page-leaving {
   width: min(92%, 1100px);
   padding: 10px 26px;
   border-radius: 999px;
+}
+
+.navbar.scrolled .nav-right {
+  margin-right: -14px;
 }
 
 .navbar.scrolled::before {
@@ -203,6 +208,7 @@ body.page-leaving {
   align-items: center;
   gap: 18px;
   flex-shrink: 0;
+  transition: margin-right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .login-btn {
@@ -522,6 +528,78 @@ body.page-leaving {
   animation: rise-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
 }
 
+.wip-section {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--body-bg);
+}
+
+.tape-strip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 160vw;
+  height: 78px;
+  transform: translate(-50%, -50%) rotate(-5deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: repeating-linear-gradient(-45deg, #f4c400 0 36px, #111111 36px 72px);
+  border-top: 4px solid #111111;
+  border-bottom: 4px solid #111111;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  animation: stripe-move 3.2s linear infinite;
+}
+
+@keyframes stripe-move {
+  from { background-position: 0 0; }
+  to { background-position: 101.82px 0; }
+}
+
+.tape-text {
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 800;
+  font-size: clamp(14px, 2.2vw, 24px);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #f4c400;
+  background: rgba(10, 3, 3, 0.88);
+  padding: 10px 26px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.wip-section .back-btn {
+  position: absolute;
+  top: calc(50% + 100px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #111111;
+  background: #f4c400;
+  border: 2px solid #111111;
+  border-radius: 999px;
+  padding: 10px 22px;
+  text-decoration: none;
+  box-shadow: 0 4px 0 #111111;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+}
+
+.wip-section .back-btn:hover {
+  transform: translateX(-50%) translateY(-3px);
+  box-shadow: 0 7px 0 #111111;
+}
+
+.wip-section .back-btn:active {
+  transform: translateX(-50%) translateY(1px);
+  box-shadow: 0 2px 0 #111111;
+}
+
 .page-section {
   position: relative;
   padding: 100px 48px;
@@ -815,7 +893,7 @@ body.page-leaving {
     gap: 28px;
     padding: 40px;
     z-index: 140;
-    transform: translateX(100%);
+    transform: translateX(calc(100% + 30px));
     transition: none;
   }
 
@@ -829,6 +907,16 @@ body.page-leaving {
 
   .nav-links a {
     font-size: 20px;
+  }
+
+  .nav-close-item {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+  }
+
+  .nav-close-item .menu-toggle {
+    transform: none;
   }
 
   .nav-links li {
@@ -847,6 +935,7 @@ body.page-leaving {
   .nav-links.open li:nth-child(3) { transition-delay: 0.15s; }
   .nav-links.open li:nth-child(4) { transition-delay: 0.2s; }
   .nav-links.open li:nth-child(5) { transition-delay: 0.25s; }
+  .nav-links.open li:nth-child(6) { transition-delay: 0.3s; }
 
   .nav-login-item {
     display: block;
@@ -910,6 +999,20 @@ body.page-leaving {
 
   .page-hero {
     padding: calc(var(--nav-height) + 40px) 24px 60px 24px;
+  }
+
+  .tape-strip {
+    height: 56px;
+  }
+
+  .tape-text {
+    font-size: 12px;
+    padding: 8px 18px;
+  }
+
+  .wip-section .back-btn {
+    font-size: 13px;
+    padding: 8px 16px;
   }
 }
 
