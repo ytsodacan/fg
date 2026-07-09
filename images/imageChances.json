@@ -1,17 +1,69 @@
 [
   {
     "img": "images/bg1.PNG",
-    "text": "Wonderland Map",
+    "text": "Wonderland",
     "chance": 40
   },
   {
     "img": "images/bg2.PNG",
-    "text": "Candyland Map",
+    "text": "Candyland",
     "chance": 30
   },
   {
     "img": "images/bg3.PNG",
     "text": "Circus",
     "chance": 30
+  },
+  {
+    "img": "images/forest.png",
+    "text": "Forest",
+    "chance": 25
+  },
+  {
+    "img": "images/castle.png",
+    "text": "Wonderland Castle",
+    "chance": 25
+  },
+  {
+    "img": "images/city.png",
+    "text": "City",
+    "chance": 25
+  },
+  {
+    "img": "images/cityhallway.png",
+    "text": "City Hallway",
+    "chance": 20
+  },
+  {
+    "img": "images/poolrooms.png",
+    "text": "Poolrooms",
+    "chance": 25
+  },
+  {
+    "img": "images/dreamcore.jpg",
+    "text": "Dreamcore",
+    "chance": 20
+  },
+  {
+    "img": "images/dreamcorelevel1.png",
+    "text": "Backrooms Level 1",
+    "chance": 20
+  },
+  {
+    "img": "images/sun.png",
+    "text": "Sun Summoning",
+    "chance": 20
+  },
+  {
+    "img": "images/%3F.png",
+    "text": "?̵̧̛̛͓̭̳̱̠̻̽̀͒̔̄́̅̄̒̃̽͛͛͊̓͋̂̅̎́̊͛̿̓͒͐̾̍̃̀͑͋̔͊̔̌͆̀̂̌̚͘͘̕͝͝͠͠?̸̧̛̛̰̩͚̺̮͔̬̘̂̃̿̌̽́̒͛̈́̈́͌̑͛̾̍̂͑͐͛͊̅̍̀̎́͛̾̃̀̿̋̅́̓͒͑͘͝͝͝͠?̷̨̢̡̛͈̫͍̦̻̱̱̣͔̘̰͙̝̜̠̟̽̎́̓̊́̈́̊͊̌͗͐̓͊̿̿́͗͑͋͛̔̃̍̾̏̀̂̔̉̈́̈̋̒̆̓̚͜͝͝͝ͅ?̶̨̡̨̨̛̜̻̥̫̠̱̹̯̦͎̩̪̼̜̼̟̙̯̣͔̭̱̯͗̆̀̔͛̂̾̚̕?̵̧͓͉̫͕͔̪͍̮̲͆̈̋͋̇̍̓͌͂̍̔̽̾̊̐̔̈́́̽͌̏̋̾̎͊́̑͛̑͘̕̕̕",
+    "chance": 1,
+    "glitch": true
+  },
+  {
+    "img": "images/%3F1.png",
+    "text": "?̵̧̛̛͓̭̳̱̠̻̽̀͒̔̄́̅̄̒̃̽͛͛͊̓͋̂̅̎́̊͛̿̓͒͐̾̍̃̀͑͋̔͊̔̌͆̀̂̌̚͘͘̕͝͝͠͠?̸̧̛̛̰̩͚̺̮͔̬̘̂̃̿̌̽́̒͛̈́̈́͌̑͛̾̍̂͑͐͛͊̅̍̀̎́͛̾̃̀̿̋̅́̓͒͑͘͝͝͝͠?̷̨̢̡̛͈̫͍̦̻̱̱̣͔̘̰͙̝̜̠̟̽̎́̓̊́̈́̊͊̌͗͐̓͊̿̿́͗͑͋͛̔̃̍̾̏̀̂̔̉̈́̈̋̒̆̓̚͜͝͝͝ͅ?̶̨̡̨̨̛̜̻̥̫̠̱̹̯̦͎̩̪̼̜̼̟̙̯̣͔̭̱̯͗̆̀̔͛̂̾̚̕?̵̧͓͉̫͕͔̪͍̮̲͆̈̋͋̇̍̓͌͂̍̔̽̾̊̐̔̈́́̽͌̏̋̾̎͊́̑͛̑͘̕̕̕",
+    "chance": 1,
+    "glitch": true
   }
 ]

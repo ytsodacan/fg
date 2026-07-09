@@ -34,22 +34,29 @@ function fallbackImageChances() {
   ];
 }
 
-function weightedPick(data) {
-  var total = data.reduce(function (sum, entry) {
+function weightedPick(data, exclude) {
+  var pool = data;
+  if (exclude) {
+    var filtered = data.filter(function (entry) {
+      return entry !== exclude;
+    });
+    if (filtered.length) pool = filtered;
+  }
+  var total = pool.reduce(function (sum, entry) {
     return sum + (entry.chance || 0);
   }, 0);
   if (total <= 0) {
-    return data[Math.floor(Math.random() * data.length)];
+    return pool[Math.floor(Math.random() * pool.length)];
   }
   var rand = Math.random() * total;
   var cumulative = 0;
-  for (var i = 0; i < data.length; i++) {
-    cumulative += data[i].chance || 0;
+  for (var i = 0; i < pool.length; i++) {
+    cumulative += pool[i].chance || 0;
     if (rand <= cumulative) {
-      return data[i];
+      return pool[i];
     }
   }
-  return data[data.length - 1];
+  return pool[pool.length - 1];
 }
 
 function applyRandomHeroBackground(data) {
@@ -70,19 +77,26 @@ function applyRandomHeroBackground(data) {
 function buildCarousel(data) {
   var track = document.getElementById("sliderTrack");
   if (!track || !data.length) return;
-  var minItems = 6;
-  var repeatCount = Math.max(2, Math.ceil(minItems / data.length));
-  var baseSet = [];
-  for (var r = 0; r < repeatCount; r++) {
-    baseSet = baseSet.concat(data);
+  var loopLength = Math.max(18, data.length * 3);
+  var sequence = [];
+  var prev = null;
+  for (var i = 0; i < loopLength; i++) {
+    var pick = weightedPick(data, prev);
+    if (prev && prev.glitch && pick.glitch) {
+      pick = weightedPick(data, pick);
+    }
+    sequence.push(pick);
+    prev = pick;
   }
-  var fullSet = baseSet.concat(baseSet);
+  var fullSet = sequence.concat(sequence);
   track.innerHTML = fullSet
     .map(function (entry) {
+      var textClass = entry.glitch ? "slide-text glitch" : "slide-text";
+      var dataAttr = entry.glitch ? ' data-text="' + entry.text + '"' : "";
       return (
         '<div class="slide-item">' +
         '<img alt="' + entry.text + '">' +
-        '<div class="slide-text">' + entry.text + "</div>" +
+        '<div class="' + textClass + '"' + dataAttr + '>' + entry.text + "</div>" +
         "</div>"
       );
     })
