@@ -25,6 +25,31 @@ html {
   animation: none !important;
 }
 
+@keyframes fade-up-in {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in-only {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes drop-in {
+  from { opacity: 0; transform: translateY(-26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 html, body {
   height: 100%;
 }
@@ -60,6 +85,7 @@ body.page-leaving {
   justify-content: space-between;
   padding: 22px 48px;
   border-radius: 0px;
+  animation: drop-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
   transition:
     top 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
@@ -302,6 +328,7 @@ body.page-leaving {
   width: min(64vw, 460px);
   height: auto;
   display: block;
+  animation: fade-up-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 }
 
 .watch-trailer {
@@ -317,6 +344,7 @@ body.page-leaving {
   padding: 16px 38px;
   cursor: pointer;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: fade-up-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
   transition: background 0.25s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
@@ -345,6 +373,7 @@ body.page-leaving {
   z-index: 20;
   pointer-events: none;
   white-space: nowrap;
+  animation: fade-in-only 0.9s ease 0.7s both;
 }
 
 .minigame-panel {
@@ -361,6 +390,7 @@ body.page-leaving {
   padding: 16px 20px;
   box-shadow: -4px 6px 16px rgba(0, 0, 0, 0.45);
   transform-origin: right center;
+  animation: slide-in-right 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
 }
 
@@ -446,6 +476,7 @@ body.page-leaving {
   font-size: 13px;
   font-weight: 700;
   color: var(--text-light);
+  animation: rise-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
 }
 
 .online-dot {
@@ -474,10 +505,12 @@ body.page-leaving {
 .page-hero .section-eyebrow {
   justify-content: center;
   display: flex;
+  animation: rise-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
 }
 
 .page-hero .section-title {
   margin-bottom: 16px;
+  animation: rise-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
 }
 
 .page-hero p {
@@ -486,6 +519,7 @@ body.page-leaving {
   font-size: 17px;
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.8);
+  animation: rise-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.32s both;
 }
 
 .page-section {
@@ -733,6 +767,23 @@ body.page-leaving {
   .nav-links a {
     font-size: 20px;
   }
+
+  .nav-links li {
+    opacity: 0;
+    transform: translateX(24px);
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .nav-links.open li {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .nav-links.open li:nth-child(1) { transition-delay: 0.05s; }
+  .nav-links.open li:nth-child(2) { transition-delay: 0.1s; }
+  .nav-links.open li:nth-child(3) { transition-delay: 0.15s; }
+  .nav-links.open li:nth-child(4) { transition-delay: 0.2s; }
+  .nav-links.open li:nth-child(5) { transition-delay: 0.25s; }
 
   .nav-login-item {
     display: block;
