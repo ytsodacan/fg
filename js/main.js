@@ -134,11 +134,13 @@ function setupMobileMenu() {
     links.classList.add("menu-transition");
     links.classList.toggle("open");
     overlay.classList.toggle("open");
+    toggle.classList.toggle("is-open");
   });
   overlay.addEventListener("click", function () {
     links.classList.add("menu-transition");
     links.classList.remove("open");
     overlay.classList.remove("open");
+    toggle.classList.remove("is-open");
   });
 
   // The drawer only gets its transition right before a real user-initiated
@@ -148,6 +150,7 @@ function setupMobileMenu() {
     links.classList.remove("menu-transition");
     links.classList.remove("open");
     overlay.classList.remove("open");
+    toggle.classList.remove("is-open");
   });
 }
 
@@ -158,10 +161,11 @@ function setupScrollReveal() {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
           entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0.15, rootMargin: "0px 0px -80px 0px" }
   );
   revealEls.forEach(function (el) {
     observer.observe(el);
