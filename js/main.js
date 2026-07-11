@@ -303,6 +303,20 @@ function setupPageTransitions() {
   });
 }
 
+function Login() {
+  const errorToast = Toast.makeText(
+    document.body,
+    "Not done yet. Come back later!",
+    Toast.LENGTH_LONG
+  );
+  errorToast.setStyle(Toast.STYLE_ERROR)
+    .setPosition(Toast.POSITION_TOP_RIGHT)
+    .setAnimation(Toast.SLIDE_IN_TOP,Toast.SLIDE_OUT_TOP)
+    .setDismissible(true,"#fff")
+    errorToast.show();
+};
+  
+
 document.addEventListener("DOMContentLoaded", function () {
   fetchImageChances(function (data) {
     applyRandomHeroBackground(data);

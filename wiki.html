@@ -8,11 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
+<script src="https://soufianodev.github.io/Toast-JS/libs/js/v2.1.0-beta/Toast.js"></script>
 </head>
 <body>
 
 <div id="navSentinel" aria-hidden="true" style="position:absolute; top:0; left:0; width:1px; height:1px; pointer-events:none;"></div>
-
+<div id="toast-notification" class="toast-notification"></div>
 <nav class="navbar" id="navbar">
   <div class="logo-badge">
     <img src="images/fg.WEBP" alt="Fearing Gorilla logo">
@@ -26,11 +27,11 @@
     <li><a href="about.html">About</a></li>
     <li><a href="wiki.html" class="active">Wiki</a></li>
     <li><a href="https://your-shop-link.com" target="_blank" rel="noopener">Shop</a></li>
-    <li class="nav-login-item"><button class="login-btn">LOG IN</button></li>
+    <li class="nav-login-item"><button class="login-btn" onclick="Login()">LOG IN</button></li>
   </ul>
 
   <div class="nav-right">
-    <button class="login-btn">LOG IN</button>
+    <button class="login-btn" onclick="Login()">LOG IN</button>
   </div>
 </nav>
 
